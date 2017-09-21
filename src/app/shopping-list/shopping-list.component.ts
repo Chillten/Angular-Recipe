@@ -21,7 +21,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.updateIngredientList();
     this.shoppingListService.ingredientsChanged
       .takeUntil(this.ngUnsubscribe)
-      .subscribe(this.updateIngredientList);
+      .subscribe(() => this.updateIngredientList());
   }
 
   updateIngredientList() {
