@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class ShoppingListService {
 
   ingredientsChanged = new Subject<void>();
+  startedEditing = new Subject<number>();
 
   private ingredients: Ingredient[] = [
     new Ingredient('Apple', 5),
@@ -41,5 +42,19 @@ export class ShoppingListService {
     if (!found) {
       this.ingredients.push(ingredient);
     }
+  }
+
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
+
+  updateIngredient(editedItemIndex: number, editedItem: Ingredient) {
+    this.ingredients[editedItemIndex] = editedItem;
+    this.ingredientsChanged.next();
+  }
+
+  deleteIngredient(name) {
+    this.ingredients = this.ingredients.filter(ingredient => ingredient.name !== name);
+    this.ingredientsChanged.next();
   }
 }
