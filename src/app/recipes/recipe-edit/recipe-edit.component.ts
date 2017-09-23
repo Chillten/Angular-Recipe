@@ -42,10 +42,11 @@ export class RecipeEditComponent implements OnInit {
         ingredients: this.formBuilder.array([])
       }
     );
-
-    this.recipe.ingredients.forEach(
-      ingredient => (<FormArray>this.recipeForm.get('ingredients'))
-        .push(this.createItem(ingredient)));
+    if (this.recipe) {
+      this.recipe.ingredients.forEach(
+        ingredient => (<FormArray>this.recipeForm.get('ingredients'))
+          .push(this.createItem(ingredient)));
+    }
   }
 
   private initRecipe() {
@@ -69,7 +70,10 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Submit form');
-    console.log(this.recipeForm);
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
   }
 }
