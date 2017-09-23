@@ -44,4 +44,9 @@ export class RecipeService {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.getRecipes());
   }
+
+  deleteRecipe(id: number) {
+    this.recipes.splice(id, 1);
+    this.recipesChanged.next(this.getRecipes());
+  }
 }
