@@ -4,6 +4,8 @@ import { Ingredient } from '../common/model/ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
+import { AuthService } from '../auth/auth.service';
+import { fromPromise } from 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class RecipeService implements OnInit {
@@ -27,7 +29,7 @@ export class RecipeService implements OnInit {
       ])
   ];
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private authService: AuthService) {
   }
 
 
@@ -65,11 +67,16 @@ export class RecipeService implements OnInit {
 
 
   storeRecipe() {
-    return this.http.put('https://bogovich-angular-recipe.firebaseio.com/recipes.json', this.recipes);
+    fromPromise(this.authService.getToken())
+      .map(token => 'https://bogovich-angular-recipe.firebaseio.com/recipes.json?auth='.concat(token))
+      .flatMap(url => this.http.put(url, this.recipes))
+      .subscribe();
   }
 
   loadRecipes() {
-    return this.http.get('https://bogovich-angular-recipe.firebaseio.com/recipes.json')
+    fromPromise(this.authService.getToken())
+      .map(token => 'https://bogovich-angular-recipe.firebaseio.com/recipes.json?auth='.concat(token))
+      .flatMap(url => this.http.get(url))
       .map((response: Response) => {
         const recipesResponse: Recipe[] = response.json();
         recipesResponse.forEach(this.validateRecipe);

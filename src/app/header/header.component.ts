@@ -12,7 +12,7 @@ export class HeaderComponent {
   }
 
   saveRecipes() {
-    this.recipeService.storeRecipe().subscribe();
+    this.recipeService.storeRecipe();
   }
 
   loadRecipes() {
