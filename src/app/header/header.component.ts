@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RecipeService } from '../recipes/recipe.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { RecipeService } from '../recipes/recipe.service';
 })
 export class HeaderComponent {
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private authService: AuthService) {
   }
 
   saveRecipes() {
@@ -17,5 +18,13 @@ export class HeaderComponent {
 
   loadRecipes() {
     this.recipeService.loadRecipes();
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

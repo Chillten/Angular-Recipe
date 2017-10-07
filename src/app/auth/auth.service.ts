@@ -19,7 +19,15 @@ export class AuthService {
       .catch(console.log);
   }
 
+  logout() {
+    firebase.auth().signOut().then();
+  }
+
   getToken() {
     return firebase.auth().currentUser.getIdToken();
+  }
+
+  isAuthenticated() {
+    return firebase.auth().currentUser != null;
   }
 }
