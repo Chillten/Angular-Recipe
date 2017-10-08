@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
@@ -19,8 +18,6 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     BrowserModule,
     SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     RecipesModule,
