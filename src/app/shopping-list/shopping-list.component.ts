@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Ingredient } from '../common/model/ingredient.model';
+import { Ingredient } from '../shared/model/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';

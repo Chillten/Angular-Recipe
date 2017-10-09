@@ -1,4 +1,4 @@
-import { Ingredient } from '../common/model/ingredient.model';
+import { Ingredient } from './ingredient.model';
 
 export class Recipe {
 
@@ -10,12 +10,5 @@ export class Recipe {
     this.description = description;
     this.imagePath = imagePath;
     this.ingredients = ingredients;
-  }
-
-  validate() {
-    if (!this.name) {this.name = ''; }
-    if (!this.description) {this.description = ''; }
-    if (!this.imagePath) {this.imagePath = ''; }
-    if (!this.ingredients) {this.ingredients = []; }
   }
 }

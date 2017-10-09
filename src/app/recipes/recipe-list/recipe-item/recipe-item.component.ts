@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Recipe } from '../../../model/recipe.model';
+import { Recipe } from '../../../shared/model/recipe.model';
 
 @Component({
   selector: 'app-recipe-item',

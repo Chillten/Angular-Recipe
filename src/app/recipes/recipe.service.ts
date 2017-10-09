@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Recipe } from '../model/recipe.model';
-import { Ingredient } from '../common/model/ingredient.model';
+import { Recipe } from '../shared/model/recipe.model';
+import { Ingredient } from '../shared/model/ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
