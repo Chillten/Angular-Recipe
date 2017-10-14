@@ -6,10 +6,13 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AuthService } from '../auth/auth.service';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { RecipeService } from '../recipes/recipe.service';
+import { SharedModule } from '../shared/shared.module';
+import { DaoService } from '../shared/dao.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     AppRoutingModule
   ],
   exports: [
@@ -21,7 +24,7 @@ import { RecipeService } from '../recipes/recipe.service';
     HomeComponent
   ],
   providers: [
-    ShoppingListService, RecipeService, AuthService
+    ShoppingListService, RecipeService, AuthService, DaoService
   ]
 })
 export class CoreModule { }

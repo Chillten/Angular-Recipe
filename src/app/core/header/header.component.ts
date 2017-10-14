@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RecipeService } from '../../recipes/recipe.service';
 import { AuthService } from '../../auth/auth.service';
+import { DaoService } from '../../shared/dao.service';
 
 @Component({
   selector: 'app-header',
@@ -9,15 +9,15 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private recipeService: RecipeService, private authService: AuthService) {
+  constructor(private daoService: DaoService, private authService: AuthService) {
   }
 
   saveRecipes() {
-    this.recipeService.storeRecipe();
+    this.daoService.storeRecipe();
   }
 
   loadRecipes() {
-    this.recipeService.loadRecipes();
+    this.daoService.loadRecipes();
   }
 
   isAuthenticated() {

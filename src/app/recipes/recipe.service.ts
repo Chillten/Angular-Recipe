@@ -2,10 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Recipe } from '../shared/model/recipe.model';
 import { Ingredient } from '../shared/model/ingredient.model';
 import { Subject } from 'rxjs/Subject';
-import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import { AuthService } from '../auth/auth.service';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class RecipeService implements OnInit {
@@ -29,7 +26,8 @@ export class RecipeService implements OnInit {
       ])
   ];
 
-  constructor(private http: Http, private authService: AuthService) {
+  constructor() {
+    this.recipesChanged = new Subject<Recipe[]>();
   }
 
 
@@ -63,40 +61,5 @@ export class RecipeService implements OnInit {
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
     this.recipesChanged.next(this.getRecipes());
-  }
-
-
-  storeRecipe() {
-    fromPromise(this.authService.getToken())
-      .map(token => 'https://bogovich-angular-recipe.firebaseio.com/recipes.json?auth='.concat(token))
-      .flatMap(url => this.http.put(url, this.recipes))
-      .subscribe();
-  }
-
-  loadRecipes() {
-    fromPromise(this.authService.getToken())
-      .map(token => 'https://bogovich-angular-recipe.firebaseio.com/recipes.json?auth='.concat(token))
-      .flatMap(url => this.http.get(url))
-      .map((response: Response) => {
-        const recipesResponse: Recipe[] = response.json();
-        recipesResponse.forEach(this.validateRecipe);
-        return recipesResponse;
-      })
-      .subscribe(r => this.setRecipes(r));
-  }
-
-  private validateRecipe(recipe: Recipe) {
-    if (!recipe.name) {
-      recipe.name = '';
-    }
-    if (!recipe.description) {
-      recipe.description = '';
-    }
-    if (!recipe.imagePath) {
-      recipe.imagePath = '';
-    }
-    if (!recipe.ingredients) {
-      recipe.ingredients = [];
-    }
   }
 }
