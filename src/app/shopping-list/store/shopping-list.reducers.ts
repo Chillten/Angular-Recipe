@@ -6,6 +6,7 @@ import {
   UPDATE_INGREDIENT,
   DELETE_INGREDIENT,
   START_EDIT,
+  STOP_EDIT,
 } from './shopping-list.actions';
 
 export interface ShoppingListState {
@@ -44,14 +45,20 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
       };
       return {
         ...state,
-        ingredients
+        ingredients,
+        editedIndex: -1,
+        editedItem: null
       };
     case DELETE_INGREDIENT:
       const oldIngr = [...state.ingredients];
-      oldIngr.splice(state.editedIndex, 1);
+      if (state.editedIndex > -1) {
+        oldIngr.splice(state.editedIndex, 1);
+      }
       return {
         ...state,
-        ingredients: oldIngr
+        ingredients: oldIngr,
+        editedIndex: -1,
+        editedItem: null
       };
     case START_EDIT:
       console.log(action.payload.index);
@@ -59,6 +66,12 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         ...state,
         editedIndex: action.payload.index,
         editedItem: state.ingredients[action.payload.index]
+      };
+    case STOP_EDIT:
+      return {
+        ...state,
+        editedIndex: -1,
+        editedItem: null
       };
     default:
       return state;

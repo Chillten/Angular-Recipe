@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Ingredient } from '../../shared/model/ingredient.model';
 import { NgForm } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
 import { AddIngredient, DeleteIngredient, UpdateIngredient } from '../store/shopping-list.actions';
 import { StoreModel } from '../../shared/model/store.model';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -27,6 +27,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
         (data) => {
+          console.log(data);
           if (data.editedIndex > -1) {
             this.editedItem = data.editedItem;
             this.editMode = true;
