@@ -5,17 +5,22 @@ import {
   ADD_INGREDIENTS,
   UPDATE_INGREDIENT,
   DELETE_INGREDIENT,
+  START_EDIT,
 } from './shopping-list.actions';
 
 export interface ShoppingListState {
   ingredients: Ingredient[];
+  editedIndex: number;
+  editedItem: Ingredient;
 }
 
 const initialState: ShoppingListState = {
   ingredients: [
     new Ingredient('Apple', 5),
     new Ingredient('Orange', 10)
-  ]
+  ],
+  editedIndex: -1,
+  editedItem: null
 };
 
 export function shoppingListReducer(state = initialState, action: ShoppingListActions) {
@@ -33,8 +38,8 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
       };
     case UPDATE_INGREDIENT:
       const ingredients = [...state.ingredients];
-      ingredients[action.payload.index] = {
-        ...state.ingredients[action.payload.index],
+      ingredients[state.editedIndex] = {
+        ...state.ingredients[state.editedIndex],
         ...action.payload.ingredient
       };
       return {
@@ -42,9 +47,18 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         ingredients
       };
     case DELETE_INGREDIENT:
+      const oldIngr = [...state.ingredients];
+      oldIngr.splice(state.editedIndex, 1);
       return {
         ...state,
-        ingredients: [...state.ingredients].splice(action.payload.index, 1)
+        ingredients: oldIngr
+      };
+    case START_EDIT:
+      console.log(action.payload.index);
+      return {
+        ...state,
+        editedIndex: action.payload.index,
+        editedItem: state.ingredients[action.payload.index]
       };
     default:
       return state;
