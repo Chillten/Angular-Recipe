@@ -1,5 +1,5 @@
-import { Ingredient } from './ingredient.model';
+import { ShoppingListState } from '../../shopping-list/store/shopping-list.reducers';
 
 export interface StoreModel {
-  shoppingList: { ingredients: Ingredient[] };
+  shoppingList: ShoppingListState;
 }
