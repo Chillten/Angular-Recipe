@@ -8,6 +8,8 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { RecipeService } from '../recipes/recipe.service';
 import { SharedModule } from '../shared/shared.module';
 import { DaoService } from '../shared/dao.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../shared/auth.interceptor';
 
 @NgModule({
   imports: [
@@ -24,7 +26,8 @@ import { DaoService } from '../shared/dao.service';
     HomeComponent
   ],
   providers: [
-    ShoppingListService, RecipeService, AuthService, DaoService
+    ShoppingListService, RecipeService, AuthService, DaoService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 export class CoreModule { }
