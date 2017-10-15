@@ -80,9 +80,9 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
 
 function mergeWithSingleIngredient(state: Ingredient[], newIngredient: Ingredient) {
   return [...state, newIngredient].reduce(
-    (previousValue: Ingredient[], currentValue) => {
+    (previousValue: Ingredient[], currentValue: Ingredient) => {
       const i = previousValue.find(value => value.name === currentValue.name);
-      i ? i.amount += currentValue.amount : previousValue.push(currentValue);
+      i ? i.amount += currentValue.amount : previousValue.push(new Ingredient(currentValue.name, currentValue.amount));
       return previousValue;
     },
     []);
@@ -90,9 +90,9 @@ function mergeWithSingleIngredient(state: Ingredient[], newIngredient: Ingredien
 
 function mergeIngredients(state: Ingredient[], newIngredients: Ingredient[]) {
   return [...state, ...newIngredients].reduce(
-    (previousValue: Ingredient[], currentValue) => {
+    (previousValue: Ingredient[], currentValue: Ingredient) => {
       const i = previousValue.find(value => value.name === currentValue.name);
-      i ? i.amount += currentValue.amount : previousValue.push(currentValue);
+      i ? i.amount += currentValue.amount : previousValue.push(new Ingredient(currentValue.name, currentValue.amount));
       return previousValue;
     },
     []);
