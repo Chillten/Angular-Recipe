@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
 import { AddIngredient } from '../store/shopping-list.actions';
+import {StoreModel} from "../../shared/model/store.model";
 
 @Component({
   selector: 'app-shopping-edit',
@@ -20,7 +21,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editedItemIndex: number;
   editedItem: Ingredient;
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<{shoppingList: { ingredients: Ingredient[] }}>) { }
+  constructor(private shoppingListService: ShoppingListService, private store: Store<StoreModel>) { }
 
   ngOnInit() {
     this.shoppingListService.startedEditing
