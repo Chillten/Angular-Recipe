@@ -20,6 +20,7 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
         authenticated: true
       };
     case (AuthActions.LOGOUT):
+      console.log('reducer logout');
       return {
         ...state,
         token: null,
