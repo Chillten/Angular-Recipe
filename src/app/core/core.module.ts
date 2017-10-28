@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { AuthService } from '../auth/auth.service';
 import { RecipeService } from '../recipes/recipe.service';
 import { SharedModule } from '../shared/shared.module';
 import { DaoService } from '../shared/dao.service';
@@ -25,7 +24,7 @@ import { AuthInterceptor } from '../shared/auth.interceptor';
     HomeComponent
   ],
   providers: [
-    RecipeService, AuthService, DaoService,
+    RecipeService, DaoService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })

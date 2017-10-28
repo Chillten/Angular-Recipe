@@ -4,6 +4,7 @@
     "node_modules/codelyzer"
   ],
   "rules": {
+    "object-literal-shorthand": false,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
