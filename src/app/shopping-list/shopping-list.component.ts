@@ -3,8 +3,8 @@ import { Ingredient } from '../shared/model/ingredient.model';
 import 'rxjs/add/operator/takeUntil';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { StoreModel } from '../shared/model/store.model';
 import { StartEdit, StopEdit } from './store/shopping-list.actions';
+import { AppState } from '../core/store/app.reducers';
 
 @Component({
   selector: 'app-shopping-list',
@@ -14,7 +14,7 @@ import { StartEdit, StopEdit } from './store/shopping-list.actions';
 export class ShoppingListComponent implements OnInit, OnDestroy {
   shoppingListStore: Observable<{ingredients: Ingredient[]}>;
 
-  constructor(private store: Store<StoreModel>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.shoppingListStore = this.store.select('shoppingList');

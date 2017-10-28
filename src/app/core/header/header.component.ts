@@ -1,15 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { DaoService } from '../../shared/dao.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducers';
+import { Observable } from 'rxjs/Observable';
+import { AuthState } from '../../auth/store/auth.reducers';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  constructor(private daoService: DaoService, private authService: AuthService) {
+  authState: Observable<AuthState>;
+
+  constructor(private daoService: DaoService, private authService: AuthService,
+              private store: Store<AppState>) {
+  }
+
+
+  ngOnInit(): void {
+    this.authState = this.store.select('auth');
   }
 
   saveRecipes() {
@@ -20,9 +32,9 @@ export class HeaderComponent {
     this.daoService.loadRecipes();
   }
 
-  isAuthenticated() {
-    return this.authService.isAuthenticated();
-  }
+  // authState() {
+  //   return this.authService.authState();
+  // }
 
   logout() {
     this.authService.logout();

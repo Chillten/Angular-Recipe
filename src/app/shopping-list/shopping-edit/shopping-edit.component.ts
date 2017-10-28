@@ -3,8 +3,8 @@ import { Ingredient } from '../../shared/model/ingredient.model';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AddIngredient, DeleteIngredient, UpdateIngredient } from '../store/shopping-list.actions';
-import { StoreModel } from '../../shared/model/store.model';
 import { Subject } from 'rxjs/Subject';
+import { AppState } from '../../core/store/app.reducers';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -19,7 +19,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editMode = false;
   editedItem: Ingredient;
 
-  constructor(private store: Store<StoreModel>) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
