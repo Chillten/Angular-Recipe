@@ -40,7 +40,7 @@ export function recipeReducer(state = initialState, action: RecipeActions) {
     };
     case (ADD_RECIPE): return {
       ...state,
-      recipesList: [...state.recipesList, action.payload]
+      recipesList: [...state.recipesList, action.payload.recipe]
     };
     case (UPDATE_RECIPE): {
       const recipes = [...state.recipesList];

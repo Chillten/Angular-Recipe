@@ -13,7 +13,7 @@ export class SetRecipes implements Action {
 
 export class AddRecipe implements Action {
   readonly type = ADD_RECIPE;
-  constructor(public payload: Recipe) {}
+  constructor(public payload: {recipe: Recipe}) {}
 }
 
 export class UpdateRecipe implements Action {
