@@ -5,6 +5,7 @@ import { AppState } from '../store/app.reducers';
 import { Observable } from 'rxjs/Observable';
 import { AuthState } from '../../auth/store/auth.reducers';
 import * as AuthActions from '../../auth/store/auth.actions';
+import { FetchRecipe } from '../../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loadRecipes() {
-    this.daoService.loadRecipes();
+    this.store.dispatch(new FetchRecipe());
   }
 
   logout() {

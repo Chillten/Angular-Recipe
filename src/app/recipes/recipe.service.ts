@@ -39,25 +39,6 @@ export class RecipeService implements OnInit {
     return this.recipes.slice();
   }
 
-  getRecipeById(id: number) {
-    return this.recipes[id];
-  }
-
-  updateRecipe(id: number, recipe) {
-    this.recipes[id] = recipe;
-    this.recipesChanged.next(this.getRecipes());
-  }
-
-  addRecipe(recipe) {
-    this.recipes.push(recipe);
-    this.recipesChanged.next(this.getRecipes());
-  }
-
-  deleteRecipe(id: number) {
-    this.recipes.splice(id, 1);
-    this.recipesChanged.next(this.getRecipes());
-  }
-
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
     this.recipesChanged.next(this.getRecipes());
