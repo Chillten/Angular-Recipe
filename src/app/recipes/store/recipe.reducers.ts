@@ -50,10 +50,12 @@ export function recipeReducer(state = initialState, action: RecipeActions) {
         recipesList: recipes
       };
     }
-    case (DELETE_RECIPE): return {
-      ...state,
-      recipesList: [...state.recipesList].splice(action.payload.index, 1)
-    };
+    case (DELETE_RECIPE):
+      state.recipesList.splice(action.payload.index, 1);
+      return {
+        ...state,
+        recipesList: [...state.recipesList]
+      };
 
     default:
       return state;
