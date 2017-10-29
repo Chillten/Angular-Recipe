@@ -56,7 +56,6 @@ export function recipeReducer(state = initialState, action: RecipeActions) {
         ...state,
         recipesList: [...state.recipesList]
       };
-
     default:
       return state;
   }

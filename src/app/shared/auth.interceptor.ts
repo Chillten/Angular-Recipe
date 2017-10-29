@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { AppState } from '../core/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../auth/store/auth.reducers';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

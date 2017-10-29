@@ -1,11 +1,14 @@
 
 import { Actions, Effect } from '@ngrx/effects';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { FETCH_RECIPES, SetRecipes } from './recipe.actions';
+import { FETCH_RECIPES, SetRecipes, STORE_RECIPES } from './recipe.actions';
 import { Recipe } from '../../shared/model/recipe.model';
 import { Injectable } from '@angular/core';
-import { AppState } from '../../core/store/app.reducers';
 import { Store } from '@ngrx/store';
+import { RecipeAppState } from './recipe.reducers';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/withLatestFrom';
 
 @Injectable()
 export class RecipeEffects {
@@ -18,5 +21,13 @@ export class RecipeEffects {
     .switchMap(token => this.httpClient.get<Recipe[]>(this.recipesUrl, { params: new HttpParams().append('auth', token) }))
     .map(Recipes => new SetRecipes(Recipe.validateRecipes(Recipes)));
 
-  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store<AppState>) {}
+  @Effect({ dispatch: false })
+  recipeDispatch = this.actions$.ofType(STORE_RECIPES)
+    .switchMap(() => this.store.select('recipes', 'recipesList'))
+    .withLatestFrom(this.store.select('auth', 'token'))
+    .switchMap(([recipes, token]) => {
+      return this.httpClient.put(this.recipesUrl, recipes, { params: new HttpParams().append('auth', token) });
+    });
+
+  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store<RecipeAppState>) {}
 }
