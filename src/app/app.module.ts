@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'angular-recipe' }),
     SharedModule,
     AppRoutingModule,
     ShoppingListModule,
