@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DaoService } from '../../shared/dao.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducers';
 import { Observable } from 'rxjs/Observable';
 import { AuthState } from '../../auth/store/auth.reducers';
 import * as AuthActions from '../../auth/store/auth.actions';
+import { FetchRecipe, StoreRecipe } from '../../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -15,21 +15,18 @@ export class HeaderComponent implements OnInit {
 
   authState: Observable<AuthState>;
 
-  constructor(private daoService: DaoService,
-              private store: Store<AppState>) {
-  }
-
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.authState = this.store.select('auth');
   }
 
   saveRecipes() {
-    this.daoService.storeRecipe();
+    this.store.dispatch(new StoreRecipe());
   }
 
   loadRecipes() {
-    this.daoService.loadRecipes();
+    this.store.dispatch(new FetchRecipe());
   }
 
   logout() {
